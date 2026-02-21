@@ -23,11 +23,11 @@
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-100">
-                {% for alumno in alumnos %}
+                {% for alumn in alumnos %}
                 <tr class="hover:bg-blue-50 transition-colors duration-150">
-                    <td class="px-4 py-3 whitespace-nowrap text-gray-600">{{ alumno.nombre }}</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-gray-600">{{ alumno.apaterno }}</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-gray-500">{{ alumno.email }}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-gray-600">{{ alumn.nombre }}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-gray-600">{{ alumn.apaterno }}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-gray-500">{{ alumn.email }}</td>
                  <td class="px-4 py-4 text-center">
                     <a href="javascript:void(0)"
                           style="background-color: #f95a16; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 11px; display: inline-flex; align-items: center; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
@@ -36,7 +36,7 @@
                  </td>
 
                     <td class="px-4 py-4 text-center">
-                        <a href="javascript:void(0)"
+                        <a href="detalles?id={{ alumn.id}}"
                         style="background-color: #9333ea; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 11px; display: inline-flex; align-items: center; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                          <i class="fa-solid fa-circle-info" style="margin-right: 8px;"></i> DETALLES
                         </a>

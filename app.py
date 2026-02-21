@@ -33,6 +33,21 @@ def alumnos():
 		return redirect(url_for('index'))
 	return render_template("Alumnos.html", form=create_form)
 
+@app.route('/detalles', methods=['GET'])
+def detalles():
+    id = request.args.get('id')
+    alum1 = db.session.query(Alumnos).filter(Alumnos.id == id).first()
+
+    if alum1:
+        return render_template(
+            'detalles.html',
+            id=alum1.id,
+            nombre=alum1.nombre,
+            apaterno=alum1.apaterno,
+            email=alum1.email
+        )
+    else:
+        return redirect(url_for('index'))
 
 if __name__ == '__main__':
 	with app.app_context():
