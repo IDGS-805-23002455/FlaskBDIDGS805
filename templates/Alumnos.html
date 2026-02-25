@@ -2,16 +2,16 @@
 {% block container %}
 {% import "_macros.html" as macros %}
 
-
 <div class="flex flex-col items-center justify-center min-h-screen py-16 px-4 bg-gray-50">
-        <br><br>
+    <br><br>
     <div class="w-full max-w-2xl bg-white shadow-2xl rounded-3xl overflow-hidden border border-gray-100">
 
         <div class="bg-green-600 py-10 px-10 text-center">
             <h2 class="text-white text-3xl font-black uppercase tracking-tighter">Registro de Alumnos</h2>
             <p class="text-green-100 text-sm mt-2 font-bold uppercase tracking-widest opacity-80">Gestión Académica Integral</p>
         </div>
-            <br>
+        <br>
+        
         <form action="{{ url_for('alumnos') }}" method="POST" class="p-12 space-y-8">
 
             <div>
@@ -25,20 +25,20 @@
                          required />
                 </div>
             </div>
-                <br>
+
             <div>
-                <label for="apaterno" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-2">Apellido Paterno</label>
+                <label for="apellidos" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-2">Apellidos</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
                         <i class="fas fa-id-card text-gray-400 text-xl"></i>
                     </div>
-                    <input type="text" name="apaterno" id="apaterno" value="{{ form.apaterno.data if form.apaterno.data else '' }}"
+                    <input type="text" name="apellidos" id="apellidos" value="{{ form.apellidos.data if form.apellidos.data else '' }}"
                         class="block w-full pl-14 pr-6 py-5 bg-gray-50 border-2 border-gray-100 rounded-2xl text-lg font-medium placeholder-gray-300 focus:outline-none focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all"
                          required />
                 </div>
             </div>
-                <br>
-            <div class="pb-4">
+
+            <div>
                 <label for="email" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-2">Correo Electrónico Institucional</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
@@ -49,13 +49,24 @@
                          required />
                 </div>
             </div>
-                <br>
+
+            <div>
+                <label for="telefono" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-2">Teléfono de Contacto</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                        <i class="fas fa-phone text-gray-400 text-xl"></i> </div>
+                    <input type="tel" name="telefono" id="telefono" value="{{ form.telefono.data if form.telefono.data else '' }}"
+                        class="block w-full pl-14 pr-6 py-5 bg-gray-50 border-2 border-gray-100 rounded-2xl text-lg font-medium placeholder-gray-300 focus:outline-none focus:ring-4 focus:ring-green-500/20 focus:border-green-500 transition-all"
+                         required />
+                </div>
+            </div>
+
             <button type="submit"
                 style="background-color: #16a34a;"
                 class="w-full flex items-center justify-center py-6 rounded-2xl text-white font-black text-sm uppercase tracking-widest shadow-[0_10px_20px_rgba(22,163,74,0.3)] hover:bg-green-700 hover:shadow-[0_15px_25px_rgba(22,163,74,0.4)] transition-all transform hover:-translate-y-1 active:scale-95">
                 <i class="fas fa-database mr-3 text-xl"></i> Guardar en Base de Datos
             </button>
-                <br>
+
             <div class="mt-8 text-center">
                 <a href="{{ url_for('index') }}" class="inline-flex items-center text-xs font-black text-gray-400 hover:text-green-600 uppercase tracking-tighter transition-colors">
                     <i class="fas fa-arrow-left mr-2"></i> Volver al Listado de Alumnos
@@ -63,7 +74,6 @@
             </div>
         </form>
     </div>
-<br><br>
+    <br><br>
 </div>
-
 {% endblock %}

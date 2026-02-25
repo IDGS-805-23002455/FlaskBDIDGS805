@@ -2,11 +2,11 @@
 {% block container %}
 {% import "_macros.html" as macros %}
 
-    <div class="flex flex-col items-center justify-center min-h-screen py-10 px-4 bg-gray-50">
+<div class="flex flex-col items-center justify-center min-h-screen py-10 px-4 bg-gray-50">
     <br>
     <div class="w-full max-w-4xl mb-4 flex justify-start">
         <a href="Alumnos" style="border-radius: 6px;" class="inline-block w-64 text-center text-white bg-blue-600 hover:bg-blue-700 shadow-md font-semibold rounded-md text-sm px-2 py-2 transition-all duration-300">
-    <i class="fa-solid fa-user-plus mr-2"></i> AGREGAR ALUMNO
+            <i class="fa-solid fa-user-plus mr-2"></i> AGREGAR ALUMNO
         </a>
     </div>
     <br>
@@ -15,10 +15,10 @@
             <thead class="bg-gray-100">
                 <tr>
                     <th scope="col" class="px-4 py-3 text-left font-bold text-gray-700 uppercase tracking-wider">Nombre</th>
-                    <th scope="col" class="px-4 py-3 text-left font-bold text-gray-700 uppercase tracking-wider">Apaterno</th>
+                    <th scope="col" class="px-4 py-3 text-left font-bold text-gray-700 uppercase tracking-wider">Apellido</th>
                     <th scope="col" class="px-4 py-3 text-left font-bold text-gray-700 uppercase tracking-wider">Correo</th>
-                    <th scope="col" class="px-4 py-3 text-center font-bold text-gray-700 uppercase tracking-wider w-24">Editar</th>.
-                    <th scope="col" class="px-4 py-3 text-left font-bold text-gray-700 uppercase tracking-wider">Detalles</th>
+                    <th scope="col" class="px-4 py-3 text-left font-bold text-gray-700 uppercase tracking-wider">Teléfono</th> <th scope="col" class="px-4 py-3 text-center font-bold text-gray-700 uppercase tracking-wider w-24">Editar</th>
+                    <th scope="col" class="px-4 py-3 text-center font-bold text-gray-700 uppercase tracking-wider w-24">Detalles</th>
                     <th scope="col" class="px-4 py-3 text-center font-bold text-gray-700 uppercase tracking-wider w-24">Eliminar</th>
                 </tr>
             </thead>
@@ -26,31 +26,34 @@
                 {% for alumn in alumnos %}
                 <tr class="hover:bg-blue-50 transition-colors duration-150">
                     <td class="px-4 py-3 whitespace-nowrap text-gray-600">{{ alumn.nombre }}</td>
-                    <td class="px-4 py-3 whitespace-nowrap text-gray-600">{{ alumn.apaterno }}</td>
+                    <td class="px-4 py-3 whitespace-nowrap text-gray-600">{{ alumn.apellidos }}</td>
                     <td class="px-4 py-3 whitespace-nowrap text-gray-500">{{ alumn.email }}</td>
-                 <td class="px-4 py-4 text-center">
-                    <a href="javascript:void(0)"
+                    <td class="px-4 py-3 whitespace-nowrap text-gray-500">{{ alumn.telefono }}</td>
+                    
+                    <td class="px-4 py-4 text-center">
+                        <a href="modificar?id={{ alumn.id }}"
                           style="background-color: #f95a16; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 11px; display: inline-flex; align-items: center; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                        <i class="fa-solid fa-pen-to-square" style="margin-right: 8px;"></i> EDITAR
-                     </a>
-                 </td>
+                            <i class="fa-solid fa-pen-to-square" style="margin-right: 8px;"></i> EDITAR
+                        </a>
+                    </td>
 
                     <td class="px-4 py-4 text-center">
-                        <a href="detalles?id={{ alumn.id}}"
+                        <a href="detalles?id={{ alumn.id }}"
                         style="background-color: #9333ea; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 11px; display: inline-flex; align-items: center; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
                          <i class="fa-solid fa-circle-info" style="margin-right: 8px;"></i> DETALLES
                         </a>
                     </td>
-                  <td class="px-4 py-4 text-center">
-                    <a href="javascript:void(0)"
-                     style="background-color: #dc2626; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 11px; display: inline-flex; align-items: center; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                     <i class="fa-solid fa-trash" style="margin-right: 8px;"></i> ELIMINAR
-                      </a>
+
+                    <td class="px-4 py-4 text-center">
+                        <a href="eliminar?id={{ alumn.id }}" onclick="return confirm('¿Seguro que deseas eliminar este registro?')"
+                         style="background-color: #dc2626; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 11px; display: inline-flex; align-items: center; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                         <i class="fa-solid fa-trash" style="margin-right: 8px;"></i> ELIMINAR
+                        </a>
                     </td>
                 </tr>
                 {% else %}
                 <tr>
-                    <td colspan="6" class="px-4 py-8 text-center text-gray-400 italic bg-gray-50">
+                    <td colspan="7" class="px-4 py-8 text-center text-gray-400 italic bg-gray-50">
                         No se encontraron registros de alumnos.
                     </td>
                 </tr>

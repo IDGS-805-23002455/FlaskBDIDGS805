@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+{% block container %}
+{% import "_macros.html" as macros %}
+
+<div class="flex flex-col items-center justify-center min-h-screen py-16 px-4 bg-gray-50">
+    <div class="w-full max-w-2xl bg-white shadow-2xl rounded-3xl overflow-hidden border border-gray-100">
+
+        <div class="bg-red-600 py-10 px-10 text-center">
+            <h2 class="text-white text-3xl font-black uppercase tracking-tighter">Eliminar Alumno</h2>
+            <p class="text-red-100 text-sm mt-2 font-bold uppercase tracking-widest opacity-80">¿Está seguro de eliminar este registro?</p>
+        </div>
+
+        <form action="{{ url_for('eliminar') }}" method="POST" class="p-12 space-y-6">
+
+            <div>
+                <label for="id" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-2">ID</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                        <i class="fas fa-fingerprint text-gray-400 text-xl"></i>
+                    </div>
+                    <input type="text" name="id" id="id" value="{{ form.id.data if form.id.data else '' }}"
+                        class="block w-full pl-14 pr-6 py-5 bg-gray-100 border-2 border-gray-200 rounded-2xl text-lg font-medium text-gray-400"
+                        readonly />
+                </div>
+            </div>
+
+            <div>
+                <label for="nombre" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-2">Nombre Completo</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                        <i class="fas fa-user text-gray-400 text-xl"></i>
+                    </div>
+                    <input type="text" name="nombre" id="nombre" value="{{ form.nombre.data if form.nombre.data else '' }}"
+                        class="block w-full pl-14 pr-6 py-5 bg-gray-50 border-2 border-gray-100 rounded-2xl text-lg font-medium text-gray-400"
+                        readonly />
+                </div>
+            </div>
+
+            <div>
+                <label for="apellidos" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-2">Apellidos</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                        <i class="fas fa-id-card text-gray-400 text-xl"></i>
+                    </div>
+                    <input type="text" name="apellidos" id="apellidos" value="{{ form.apellidos.data if form.apellidos.data else '' }}"
+                        class="block w-full pl-14 pr-6 py-5 bg-gray-50 border-2 border-gray-100 rounded-2xl text-lg font-medium text-gray-400"
+                        readonly />
+                </div>
+            </div>
+
+            <button type="submit" style="background-color: #dc2626;"
+                class="w-full flex items-center justify-center py-6 rounded-2xl text-white font-black text-sm uppercase tracking-widest shadow-lg hover:bg-red-700 transition-all transform hover:-translate-y-1 active:scale-95">
+                <i class="fas fa-trash-alt mr-3 text-xl"></i> Confirmar Eliminación
+            </button>
+
+            <div class="mt-8 text-center">
+                <a href="{{ url_for('index') }}" class="inline-flex items-center text-xs font-black text-gray-400 hover:text-red-600 uppercase tracking-tighter transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i> Cancelar y Volver
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

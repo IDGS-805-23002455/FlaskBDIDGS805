@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+{% block container %}
+{% import "_macros.html" as macros %}
+
+<div class="flex flex-col items-center justify-center min-h-screen py-8 px-4 bg-gray-50">
+    <div class="w-full max-w-xl bg-white shadow-2xl rounded-3xl overflow-hidden border border-gray-100">
+
+        <div class=" py-6 px-8 text-center">
+            <h2 class="text-white text-2xl font-black uppercase tracking-tighter">Modificar Registro</h2>
+            <p class="text-blue-100 text-xs mt-1 font-bold uppercase tracking-widest opacity-80">Actualización de datos académicos</p>
+        </div>
+
+        <form action="{{ url_for('modificar') }}" method="POST" class="p-8 space-y-4">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="md:col-span-2">
+                    <label for="id" class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1 ml-2">ID Único (No editable)</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fas fa-fingerprint text-gray-300 text-sm"></i>
+                        </div>
+                        <input type="text" name="id" id="id" value="{{ form.id.data }}"
+                            class="block w-full pl-10 pr-4 py-3 bg-gray-100 border-2 border-gray-200 rounded-xl text-sm font-bold text-gray-400 cursor-not-allowed"
+                            readonly />
+                    </div>
+                </div>
+
+                <div class="md:col-span-1">
+                    <label for="nombre" class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-1 ml-2">Nombre</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fas fa-user text-gray-400"></i>
+                        </div>
+                        <input type="text" name="nombre" id="nombre" value="{{ form.nombre.data }}"
+                            class="block w-full pl-10 pr-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-xl text-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none"
+                            required />
+                    </div>
+                </div>
+
+                <div class="md:col-span-1">
+                    <label for="apellidos" class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-1 ml-2">Apellidos</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fas fa-id-card text-gray-400"></i>
+                        </div>
+                        <input type="text" name="apellidos" id="apellidos" value="{{ form.apellidos.data }}"
+                            class="block w-full pl-10 pr-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-xl text-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none"
+                            required />
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label for="email" class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-1 ml-2">Correo Institucional</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <i class="fas fa-envelope text-gray-400"></i>
+                    </div>
+                    <input type="email" name="email" id="email" value="{{ form.email.data }}"
+                        class="block w-full pl-10 pr-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-xl text-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none"
+                        required />
+                </div>
+            </div>
+
+            <div>
+                <label for="telefono" class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-1 ml-2">Teléfono de contacto</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <i class="fas fa-phone text-gray-400"></i>
+                    </div>
+                    <input type="text" name="telefono" id="telefono" value="{{ form.telefono.data }}"
+                        class="block w-full pl-10 pr-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-xl text-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all outline-none"
+                        required />
+                </div>
+            </div>
+
+            <div class="pt-4 space-y-3">
+                <button type="submit" 
+                    class="w-full flex items-center justify-center py-4 rounded-xl text-white font-black text-xs uppercase tracking-[0.2em] bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-blue-500/30 transition-all transform hover:-translate-y-1 active:scale-95">
+                    <i class="fas fa-check-circle mr-2 text-lg"></i> Actualizar Ahora
+                </button>
+
+                <a href="{{ url_for('index') }}" 
+                    class="w-full flex items-center justify-center py-3 text-[10px] font-black text-gray-400 hover:text-gray-600 uppercase tracking-widest transition-colors">
+                    <i class="fas fa-times mr-2"></i> Cancelar cambios
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
