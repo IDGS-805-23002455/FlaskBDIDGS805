@@ -3,11 +3,13 @@ from flask import request, redirect, url_for, flash
 from flask_wtf.csrf import CSRFProtect
 from flask_migrate import Migrate
 from config import DevelopmentConfig
+from maestros import maestros
 import forms
 from models import db, Alumnos
 
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
+app.register_blueprint(maestros)
 db.init_app(app)
 migrate=Migrate(app, db)
 csrf = CSRFProtect()
@@ -29,9 +31,9 @@ def alumnos():
 	if request.method == 'POST':
 		alum = Alumnos(
             nombre=create_form.nombre.data,
-            apellidos=create_form.apellidos.data,  # <-- CAMBIA ESTO
+            apellidos=create_form.apellidos.data,  
             email=create_form.email.data,
-            telefono=create_form.telefono.data     # <-- AGREGA ESTO
+            telefono=create_form.telefono.data     
         )
 		db.session.add(alum)
 		db.session.commit()
