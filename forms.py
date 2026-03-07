@@ -1,9 +1,15 @@
-from wtforms import Form
-from wtforms import IntegerField,StringField,PasswordField
+from flask_wtf import FlaskForm
+from wtforms import IntegerField,StringField,PasswordField, SelectField, TextAreaField
 from wtforms import EmailField
 from wtforms import validators
+from flask_wtf import FlaskForm
+from wtforms import validators
 
-class UserForm(Form):
+
+from wtforms import StringField, IntegerField, TextAreaField, validators
+from wtforms.validators import Optional 
+
+class UserForm(FlaskForm):
     id = IntegerField("id", [
         validators.DataRequired(message="El campo es requerido"),
         validators.NumberRange(min=1, max=10000, message="Ingrese valor valido")
@@ -31,7 +37,7 @@ class UserForm(Form):
     
 
 
-class MaestroForm(Form):
+class MaestroForm(FlaskForm):
     id = IntegerField("matricula", [
         validators.DataRequired(message="El campo es requerido"),
         validators.NumberRange(min=1, max=10000, message="Ingrese valor valido")
@@ -42,7 +48,6 @@ class MaestroForm(Form):
         validators.length(min=4, max=20, message="Ingrese nombre valido")
     ])
 
-    # Se cambió 'apaterno' por 'apellidos' para coincidir con tu HTML
     apellidos = StringField("Apellidos", [
         validators.DataRequired(message="El campo es requerido"),
         validators.length(min=4, max=50, message="Ingrese apellidos válidos")
@@ -57,3 +62,36 @@ class MaestroForm(Form):
         validators.DataRequired(message="El campo es requerido"),
         validators.Email(message="Ingrese un correo valido")
     ])
+    
+
+
+class CursoForm(FlaskForm):
+    id = IntegerField("ID Curso", validators=[Optional()])
+    
+    nombre = StringField("Nombre del Curso", [
+        validators.DataRequired(message="El nombre es requerido"),
+        validators.length(min=4, max=150, message="Longitud no válida")
+    ])
+
+    descripcion = TextAreaField("Descripción del Curso", [
+        validators.DataRequired(message="La descripción es requerida")
+    ])
+    
+    maestro_id = StringField("Maestro Asignado", [
+        validators.DataRequired(message="Debe asignar un maestro")
+    ])
+
+
+class InscripcionForm(FlaskForm):
+    # ID autoincremental (Opcional en el form)
+    id = IntegerField("ID Inscripción", validators=[Optional()])
+    
+    # Estos recibirán el ID desde el JavaScript del HTML
+    alumno_id = StringField("Alumno", [
+        validators.DataRequired(message="Debe seleccionar un alumno")
+    ])
+    
+    curso_id = StringField("Curso", [
+        validators.DataRequired(message="Debe seleccionar un curso")
+    ])
+

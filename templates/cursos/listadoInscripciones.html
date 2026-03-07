@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+{% block container %}
+{% import "_macros.html" as macros %}
+
+<div class="flex flex-col items-center justify-center min-h-screen py-10 px-4 bg-gray-50">
+    <br>
+    <div class="w-full max-w-6xl mb-8 flex flex-wrap justify-between items-end gap-4">
+    <div>
+        <h2 class="text-2xl font-extrabold text-gray-800 uppercase tracking-wider">
+            <i class="fa-solid fa-list-check mr-2 text-blue-600"></i> Inscripciones por Alumno
+        </h2>
+        <div class="mt-4 relative">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </span>
+            <input type="text" id="filtroAlumno" onkeyup="filtrarTabla()" 
+                   placeholder="Buscar por nombre o ID..." 
+                   class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-sm w-80 shadow-sm">
+        </div>
+    </div>
+    
+    <a href="{{ url_for('alumnos.index') }}"
+       class="flex items-center justify-center py-3 text-[10px] font-black text-gray-400 hover:text-gray-600 uppercase tracking-widest transition-colors">
+        <i class="fa-solid fa-arrow-left mr-2"></i> VOLVER AL LISTADO
+    </a>
+</div>
+
+    <br>
+
+    <div class="w-full max-w-6xl overflow-hidden bg-white shadow-xl rounded-lg border border-gray-200">
+        <table class="min-w-full divide-y divide-gray-200 text-sm">
+            <thead class="bg-gray-100">
+    <tr>
+        <th scope="col" class="px-4 py-3 text-left font-bold text-gray-700 uppercase tracking-wider">ID</th>
+        <th scope="col" class="px-4 py-3 text-left font-bold text-gray-700 uppercase tracking-wider">Alumno</th>
+        <th scope="col" class="px-4 py-3 text-left font-bold text-gray-700 uppercase tracking-wider">Curso</th>
+        <th scope="col" class="px-4 py-3 text-left font-bold text-gray-700 uppercase tracking-wider">Maestro</th>
+        <th scope="col" class="px-4 py-3 text-center font-bold text-gray-700 uppercase tracking-wider w-32">Acción</th>
+    </tr>
+</thead>
+            
+            <tbody class="bg-white divide-y divide-gray-100">
+                {% for inscripcion in inscripciones %}
+                <tr class="hover:bg-green-50 transition-colors duration-150">
+                    <td class="px-4 py-3 whitespace-nowrap text-gray-500 font-mono">{{ inscripcion.id }}</td>
+                    <td class="px-4 py-3 whitespace-nowrap">
+                        <div class="font-bold text-gray-800">{{ inscripcion.alumno.nombre }} {{ inscripcion.alumno.apellidos }}</div>
+                        <div class="text-xs text-gray-400">{{ inscripcion.alumno.email }}</div>
+                    </td>
+                    <td class="px-4 py-3 whitespace-nowrap text-blue-700 font-semibold">
+                        {{ inscripcion.curso.nombre }}
+                    </td>
+                    <td class="px-4 py-3 whitespace-nowrap text-gray-600">
+                        {{ inscripcion.curso.maestro.nombre }} {{ inscripcion.curso.maestro.apellidos }}
+                    </td>
+                    
+                    <td class="px-4 py-4 text-center">
+                        <a href="{{ url_for('inscripciones.eliminar_inscripcion', id=inscripcion.id) }}" 
+   onclick="return confirm('¿Desea dar de baja el alumno que esta inscrito?')"
+                           style="background-color: #dc2626; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 11px; display: inline-flex; align-items: center; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            <i class="fa-solid fa-trash" style="margin-right: 8px;"></i> DAR DE BAJA
+</a>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" class="px-4 py-8 text-center text-gray-400 italic bg-gray-50">
+                        No hay alumnos inscritos en ningún curso actualmente.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script>
+function filtrarTabla() {
+    const input = document.getElementById("filtroAlumno");
+    const filter = input.value.toUpperCase();
+    const table = document.querySelector("table");
+    const tr = table.getElementsByTagName("tr");
+
+    for (let i = 1; i < tr.length; i++) { // Empezamos en 1 para saltar el encabezado
+        const tdId = tr[i].getElementsByTagName("td")[0];
+        const tdNombre = tr[i].getElementsByTagName("td")[1];
+        
+        if (tdId || tdNombre) {
+            const textId = tdId.textContent || tdId.innerText;
+            const textNombre = tdNombre.textContent || tdNombre.innerText;
+            
+            if (textId.toUpperCase().indexOf(filter) > -1 || textNombre.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}
+</script>
+{% endblock %}

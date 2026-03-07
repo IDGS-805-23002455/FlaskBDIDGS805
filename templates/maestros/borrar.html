@@ -11,6 +11,7 @@
         </div>
 
         <form action="{{ url_for('maestros.eliminar_maestro') }}" method="POST" class="p-12 space-y-6">
+            {{ form.hidden_tag() }}
 
             <div>
                 <label for="id" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-2">Matrícula</label>

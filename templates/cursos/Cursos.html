@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+{% block container %}
+
+<div class="flex flex-col items-center justify-center min-h-screen py-16 px-4 bg-gray-50">
+    <div class="w-full max-w-2xl bg-white shadow-2xl rounded-3xl overflow-hidden border border-gray-100">
+
+        <div class="bg-indigo-600 py-10 px-10 text-center">
+            <h2 class="text-white text-3xl font-black uppercase tracking-tighter">Registro de Cursos</h2>
+            <p class="text-indigo-100 text-sm mt-2 font-bold uppercase tracking-widest opacity-80">El ID se generará automáticamente</p>
+        </div>
+        
+        <form action="{{ url_for('cursos.cursos_form') }}" method="POST" class="p-12 space-y-8">
+            {{ form.hidden_tag() }}
+
+            <div>
+                <label for="nombre" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-2">Nombre del Curso</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                        <i class="fas fa-book text-gray-400 text-xl"></i>
+                    </div>
+                    <input type="text" name="nombre" id="nombre"
+                        value="{{ form.nombre.data if form.nombre.data else '' }}"
+                        class="block w-full pl-14 pr-6 py-5 bg-gray-50 border-2 border-gray-100 rounded-2xl text-lg font-medium focus:outline-none focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                        placeholder="Ej. Programación Web" required />
+                </div>
+            </div>
+
+            <div>
+                <label for="descripcion" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-2">Descripción</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-5 pt-5 flex items-start pointer-events-none">
+                        <i class="fas fa-align-left text-gray-400 text-xl"></i>
+                    </div>
+                    <textarea name="descripcion" id="descripcion" rows="4"
+                        class="block w-full pl-14 pr-6 py-5 bg-gray-50 border-2 border-gray-100 rounded-2xl text-lg font-medium focus:outline-none focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                        placeholder="Detalles del curso..." required>{{ form.descripcion.data if form.descripcion.data else '' }}</textarea>
+                </div>
+            </div>
+
+            <div>
+                <label for="maestro_display" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-2">Maestro</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
+                        <i class="fas fa-search text-gray-400 text-xl"></i>
+                    </div>
+                    <input list="maestros_options" id="maestro_display" autocomplete="off"
+                        class="block w-full pl-14 pr-6 py-5 bg-gray-50 border-2 border-gray-100 rounded-2xl text-lg font-medium focus:outline-none focus:ring-4 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all"
+                        placeholder="Escribe para buscar..." oninput="syncMaestroId(this)" required>
+
+                    <input type="hidden" name="maestro_id" id="maestro_id">
+
+                    <datalist id="maestros_options">
+                        {% for maestro in maestros_list %}
+                            <option data-id="{{ maestro.matricula }}" value="{{ maestro.nombre }} {{ maestro.apellidos }}">
+                        {% endfor %}
+                    </datalist>
+                </div>
+            </div>
+
+            <button type="submit" style="background-color: #16a34a;"
+                class="w-full flex items-center justify-center py-6 rounded-2xl text-white font-black text-sm uppercase tracking-widest shadow-lg hover:bg-green-700 transition-all transform hover:-translate-y-1">
+                <i class="fas fa-save mr-3 text-xl"></i> Guardar Curso
+            </button>
+
+            <div class="mt-8 text-center">
+                <a href="{{ url_for('cursos.cursos_listado') }}" class="inline-flex items-center text-xs font-black text-gray-400 hover:text-green-600 uppercase tracking-tighter transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i> Volver al Listado de Maestros
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+function syncMaestroId(input) {
+    const datalist = document.getElementById('maestros_options');
+    const hiddenInput = document.getElementById('maestro_id');
+    const options = datalist.options;
+    hiddenInput.value = ""; 
+    for (let i = 0; i < options.length; i++) {
+        if (options[i].value === input.value) {
+            hiddenInput.value = options[i].getAttribute('data-id');
+            return;
+        }
+    }
+}
+</script>
+{% endblock %}

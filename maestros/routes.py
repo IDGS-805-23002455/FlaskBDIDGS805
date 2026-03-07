@@ -1,7 +1,7 @@
 import forms
 from . import maestros
 from flask import render_template, request, redirect, url_for
-from models import Maestros, db
+from models import Maestros, db, Curso
 
 @maestros.route("/maestros/listado", methods=['GET', 'POST'])
 def maestros_listado():
@@ -12,20 +12,27 @@ def maestros_listado():
         form=create_form,
         maestros=maestros_list
     )
-    
+
 @maestros.route("/maestros/detalle", methods=['GET'])
 def detalles_maestro():
     id_req = request.args.get('id')
+    
+    # Buscamos al maestro. 
+    # Al usar .first(), traemos el objeto que ya contiene la relación 'cursos'
     maes = Maestros.query.filter_by(matricula=id_req).first()
     
     if not maes:
         return f"Error: No existe el maestro con matrícula {id_req}", 404
+
+    # GRACIAS A TU MODELO: No necesitas Curso.query.filter_by...
+    # Solo pasamos 'maes.cursos' directamente al template.
     return render_template('maestros/detalle.html', 
-                           id=maes.matricula, 
-                           nombre=maes.nombre, 
-                           apellidos=maes.apellidos, 
-                           especialidad=maes.especialidad, 
-                           email=maes.email)
+                            id=maes.matricula, 
+                            nombre=maes.nombre, 
+                            apellidos=maes.apellidos, 
+                            especialidad=maes.especialidad, 
+                            email=maes.email,
+                            cursos=maes.cursos) # Aquí está la magia de la relación
 
 
 @maestros.route('/maestros/agregar', methods=['GET', 'POST'])

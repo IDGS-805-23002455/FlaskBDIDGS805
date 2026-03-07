@@ -4,14 +4,18 @@
 
 <div class="flex flex-col items-center justify-center min-h-screen py-10 px-4 bg-gray-50">
     <br>
-    <div class="w-full max-w-4xl mb-4 flex justify-start">
+    .<div class="w-full max-w-6xl mb-4 flex justify-start">
         <a href="{{ url_for('maestros.maestros_form') }}"
-           class="inline-block w-64 text-center text-white bg-blue-600 hover:bg-blue-700 shadow-md font-semibold rounded-md text-sm px-2 py-2 transition-all duration-300">
+           style="border-radius: 6px;" class="inline-block w-64 text-center text-white bg-blue-600 hover:bg-blue-700 shadow-md font-semibold rounded-md text-sm px-2 py-2 transition-all duration-300">
             <i class="fa-solid fa-user-plus mr-2"></i> AGREGAR MAESTROS
         </a>
-    </div>
+        <a href="{{ url_for('alumnos.index') }}"
+class="w-full flex items-center justify-center py-3 text-[10px] font-black text-gray-400 hover:text-gray-600 uppercase tracking-widest transition-colors">
+                    <i class="fa-solid fa-arrow-left mr-2"></i> VOLVER AL LISTADO
+        </a>
+    </div>.
     <br>
-    <div class="w-full max-w-4xl overflow-hidden bg-white shadow-xl rounded-lg border border-gray-200">
+    <div class="w-full max-w-6xl overflow-hidden bg-white shadow-xl rounded-lg border border-gray-200">
         <table class="min-w-full divide-y divide-gray-200 text-sm">
             <thead class="bg-gray-100">
                 <tr>
@@ -22,6 +26,7 @@
                     <th scope="col" class="px-4 py-3 text-center font-bold text-gray-700 uppercase tracking-wider w-24">Editar</th>
                     <th scope="col" class="px-4 py-3 text-center font-bold text-gray-700 uppercase tracking-wider w-24">Detalles</th>
                     <th scope="col" class="px-4 py-3 text-center font-bold text-gray-700 uppercase tracking-wider w-24">Eliminar</th>
+                    <th scope="col" class="px-4 py-3 text-center font-bold text-gray-700 uppercase tracking-wider w-24">Cursos</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-100">
@@ -53,10 +58,17 @@
                             <i class="fa-solid fa-trash" style="margin-right: 8px;"></i> ELIMINAR
                         </a>
                     </td>
+                    
+                    <td class="px-4 py-4 text-center">
+                        <a href="{{ url_for('cursos.cursos_listado', id=maes.matricula) }}"
+                           style="background-color: #6366f1; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 11px; display: inline-flex; align-items: center; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                            <i class="fa-solid fa-graduation-cap" style="margin-right: 8px;"></i> CURSOS
+                        </a>
+                    </td>
                 </tr>
                 {% else %}
                 <tr>
-                    <td colspan="7" class="px-4 py-8 text-center text-gray-400 italic bg-gray-50">
+                    <td colspan="8" class="px-4 py-8 text-center text-gray-400 italic bg-gray-50">
                         No se encontraron registros de maestros.
                     </td>
                 </tr>

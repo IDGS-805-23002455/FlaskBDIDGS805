@@ -6,62 +6,68 @@
         <button id="dropdownButton" data-dropdown-toggle="dropdown"
             class="absolute top-2 end-2 text-gray-500 hover:text-gray-900 bg-gray-50 hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 rounded-lg p-1.5 focus:outline-none"
             type="button">
-            <span class="sr-only">Open dropdown</span>
-            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                fill="none" viewBox="0 0 24 24">
+            <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                 <path stroke="currentColor" stroke-linecap="round" stroke-width="3" d="M6 12h.01m6 0h.01m5.99 0h.01" />
             </svg>
         </button>
 
-        <div id="dropdown"
-            class="z-10 bg-white border border-gray-200 rounded-lg shadow-lg w-36 hidden">
-            <ul class="p-2 text-sm text-gray-700 font-medium" aria-labelledby="dropdownButton">
+        <div id="dropdown" class="z-10 bg-white border border-gray-200 rounded-lg shadow-lg w-36 hidden text-left">
+            <ul class="p-2 text-sm text-gray-700 font-medium">
                 <li>
-                    <a href="{{ url_for('maestros.modificar_maestro', id=id) }}"
-                        class="inline-flex items-center w-full p-2 hover:bg-gray-100 rounded-md">Editar</a>
+                    <a href="{{ url_for('maestros.modificar_maestro', id=id) }}" class="inline-flex items-center w-full p-2 hover:bg-gray-100 rounded-md">Editar</a>
                 </li>
                 <li>
-                    <a href="{{ url_for('maestros.eliminar_maestro', id=id) }}"
-                        class="inline-flex items-center w-full p-2 text-red-600 hover:bg-gray-100 rounded-md">Eliminar</a>
+                    <a href="{{ url_for('maestros.eliminar_maestro', id=id) }}" class="inline-flex items-center w-full p-2 text-red-600 hover:bg-gray-100 rounded-md">Eliminar</a>
                 </li>
             </ul>
         </div>
 
         <div class="flex flex-col items-center">
-            <img class="w-24 h-24 mb-6 rounded-full border-2 border-blue-500 p-1" src="/static/img/profesor.png"
-                alt="Imagen de perfil" />
+            <img class="w-24 h-24 mb-6 rounded-full border-2 border-blue-500 p-1" src="/static/img/profesor.png" alt="Imagen de perfil" />
             
             <h5 class="mb-1 text-xl font-bold tracking-tight text-gray-900 text-center">
                 {{ nombre }} {{ apellidos }}
             </h5>
 
-            <span class="text-sm text-gray-500 uppercase font-bold tracking-widest mb-4">Información del Maestro</span>
+            <span class="text-sm text-gray-500 uppercase font-bold tracking-widest mb-4 text-center">Información del Maestro</span>
 
             <div class="w-full space-y-2 border-t border-gray-100 pt-4">
-                <h3 class="text-sm font-medium text-gray-700">
+                <p class="text-sm font-medium text-gray-700">
                     <span class="font-bold text-blue-600">Correo:</span> {{ email }}
-                </h3>
-                
-                <h3 class="text-sm font-medium text-gray-700">
+                </p>
+                <p class="text-sm font-medium text-gray-700">
                     <span class="font-bold text-blue-600">Especialidad:</span> {{ especialidad }}
-                </h3>
+                </p>
+            </div>
+
+            <div class="w-full mt-4">
+                <h6 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2 border-b border-gray-50 pb-1">
+                    Cursos Impartidos
+                </h6>
+                <ul class="space-y-2">
+                    {% for curso in cursos %}
+                        <li class="bg-blue-50 border border-blue-100 p-2 rounded text-xs text-blue-800 font-semibold flex items-center shadow-sm">
+                            <i class="fa-solid fa-book-bookmark mr-2 text-blue-400"></i>
+                            {{ curso.nombre }}
+                        </li>
+                    {% else %}
+                        <li class="text-gray-400 text-center text-xs italic py-2">
+                            Sin cursos asignados actualmente
+                        </li>
+                    {% endfor %}
+                </ul>
             </div>
 
             <div class="flex mt-6 w-full">
                 <a href="{{ url_for('maestros.maestros_listado') }}" 
                     class="inline-flex items-center justify-center w-full text-white bg-blue-600 hover:bg-blue-700 shadow-md font-bold rounded-lg text-sm px-5 py-2.5 transition-all duration-300">
-                    <i class="fa-solid fa-arrow-left mr-2"></i> REGRESAR AL LISTADO
+                    <i class="fa-solid fa-arrow-left mr-2"></i> REGRESAR
                 </a>
             </div>
 
             <div class="flex mt-4 gap-2 w-full">
-                <button type="button"
-                    class="flex-1 inline-flex items-center justify-center text-white bg-gray-800 hover:bg-gray-900 font-medium rounded-lg text-xs px-3 py-2">
+                <button type="button" class="flex-1 inline-flex items-center justify-center text-white bg-gray-800 hover:bg-gray-900 font-medium rounded-lg text-xs px-3 py-2">
                     <i class="fa-solid fa-envelope mr-2"></i> Mensaje
-                </button>
-                <button type="button"
-                    class="flex-1 inline-flex items-center justify-center text-gray-700 bg-gray-100 hover:bg-gray-200 border border-gray-300 font-medium rounded-lg text-xs px-3 py-2">
-                    <i class="fa-solid fa-share mr-2"></i> Compartir
                 </button>
             </div>
         </div>

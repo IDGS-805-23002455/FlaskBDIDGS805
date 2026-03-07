@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block container %}
+<div class="flex flex-col items-center justify-center min-h-screen py-8 px-4 bg-gray-50">
+    <div class="w-full max-w-xl bg-white shadow-2xl rounded-3xl overflow-hidden border border-gray-100">
+
+        <div class="bg-indigo-600 py-6 px-8 text-center">
+            <h2 class="text-white text-2xl font-black uppercase tracking-tighter">Modificar Curso</h2>
+            <p class="text-indigo-100 text-xs mt-1 font-bold uppercase tracking-widest opacity-80">Actualización de catálogo académico</p>
+        </div>
+
+        <form action="{{ url_for('cursos.modificar_curso') }}" method="POST" class="p-8 space-y-4">
+            {{ form.hidden_tag() }}
+            
+            <div class="grid grid-cols-1 gap-4">
+                <div>
+                    <label for="id" class="block text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1 ml-2">ID del Curso (No editable)</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fas fa-hashtag text-gray-300 text-sm"></i>
+                        </div>
+                        <input type="text" name="id" id="id" value="{{ form.id.data if form.id.data else '' }}"
+                            class="block w-full pl-10 pr-4 py-3 bg-gray-100 border-2 border-gray-200 rounded-xl text-sm font-bold text-gray-400 cursor-not-allowed"
+                            readonly />
+                    </div>
+                </div>
+
+                <div>
+                    <label for="nombre" class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-1 ml-2">Nombre del Curso</label>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <i class="fas fa-book text-gray-400"></i>
+                        </div>
+                        <input type="text" name="nombre" id="nombre" value="{{ form.nombre.data if form.nombre.data else '' }}"
+                            class="block w-full pl-10 pr-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-xl text-sm focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all outline-none"
+                            required />
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <label for="maestro_id" class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-1 ml-2">Maestro Responsable</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                        <i class="fas fa-chalkboard-teacher text-gray-400"></i>
+                    </div>
+                    {{ form.maestro_id(class="block w-full pl-10 pr-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-xl text-sm focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all outline-none appearance-none") }}
+                </div>
+            </div>
+
+            <div>
+                <label for="descripcion" class="block text-[10px] font-black text-gray-500 uppercase tracking-widest mb-1 ml-2">Descripción del Contenido</label>
+                <div class="relative">
+                    <div class="absolute top-3 left-4 pointer-events-none">
+                        <i class="fas fa-align-left text-gray-400"></i>
+                    </div>
+                    {{ form.descripcion(class="block w-full pl-10 pr-4 py-3 bg-gray-50 border-2 border-gray-100 rounded-xl text-sm focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 transition-all outline-none", rows="3") }}
+                </div>
+            </div>
+
+            <div class="pt-4 space-y-3">
+                <button type="submit" 
+                    class="w-full flex items-center justify-center py-4 rounded-xl text-white font-black text-xs uppercase tracking-[0.2em] bg-blue-600 hover:bg-blue-700 shadow-lg hover:shadow-blue-500/30 transition-all transform hover:-translate-y-1 active:scale-95">
+                    <i class="fas fa-check-circle mr-2 text-lg"></i> Guardar Cambios
+                </button>
+
+                <a href="{{ url_for('cursos.cursos_listado') }}" 
+                    class="w-full flex items-center justify-center py-3 text-[10px] font-black text-gray-400 hover:text-gray-600 uppercase tracking-widest transition-colors">
+                    <i class="fas fa-times mr-2"></i> Cancelar y Volver
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

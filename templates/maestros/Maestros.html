@@ -12,7 +12,7 @@
         <br>
         
         <form action="{{ url_for('maestros.maestros_form') }}" method="POST" class="p-12 space-y-8">
-
+            {{ form.hidden_tag() }}
             <div>
                 <label for="nombre" class="block text-xs font-black text-gray-500 uppercase tracking-widest mb-2 ml-2">Nombre Completo</label>
                 <div class="relative">

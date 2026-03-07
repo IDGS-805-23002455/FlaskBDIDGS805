@@ -1,0 +1,82 @@
+{% extends "layout.html" %}
+{% block container %}
+<div class="group py-32 flex justify-center items-center">
+
+    <div class="relative bg-white max-w-sm w-full p-8 border border-gray-200 rounded-xl shadow-lg dark:bg-neutral-900 dark:border-neutral-800">
+        
+        <div class="flex flex-col items-center text-center">
+            <div class="relative mb-6">
+                <img class="w-28 h-28 rounded-full border-4 border-blue-100 shadow-sm" 
+                     src="/static/img/detalle.png" alt="Icono Curso" />
+            </div>
+
+            <h5 class="mb-1 text-3xl font-bold text-gray-900 dark:text-white">
+                {{ curso.nombre }}
+            </h5>
+            
+            <span class="px-3 py-1 mb-4 text-xs font-medium text-blue-800 bg-blue-100 rounded-full">
+                ID: #{{ curso.id }}
+            </span>
+
+            <div class="w-full text-left space-y-4">
+                <div>
+                    <h6 class="text-sm font-bold text-gray-500 uppercase tracking-wider">Descripción</h6>
+                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                        {{ curso.descripcion }}
+                    </p>
+                </div>
+
+                <div class="pt-4 border-t border-gray-100 dark:border-neutral-800">
+                    <h6 class="text-sm font-bold text-gray-500 uppercase tracking-wider">Maestro Asignado</h6>
+                    <div class="flex items-center mt-2">
+                        <div class="flex-shrink-0 h-8 w-8 bg-blue-600 rounded-full flex items-center justify-center text-white">
+                            <i class="fa-solid fa-chalkboard-user text-xs"></i>
+                        </div>
+                        <div class="ms-3">
+                            <p class="text-md font-semibold text-blue-600 dark:text-blue-400">
+                                {{ curso.maestro.nombre}}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="pt-4 border-t border-gray-100 dark:border-neutral-800">
+    <h6 class="text-sm font-bold text-gray-500 uppercase tracking-wider">
+        Estudiantes Inscritos
+    </h6>
+
+    <p class="text-md font-semibold text-gray-900 dark:text-white">
+        {{ curso.alumnos|length }} Alumnos registrados
+    </p>
+
+    <ul class="mt-3 space-y-2">
+        {% for alumno in curso.alumnos %}
+        <li class="flex items-center bg-gray-50 dark:bg-neutral-800 p-2 rounded-lg">
+            
+            <div class="flex-shrink-0 h-7 w-7 bg-green-600 rounded-full flex items-center justify-center text-white">
+                <i class="fa-solid fa-user text-xs"></i>
+            </div>
+
+            <span class="ml-3 text-gray-800 dark:text-gray-200 font-medium">
+                {{ alumno.nombre }}
+            </span>
+
+        </li>
+        {% else %}
+        <li class="text-gray-500 text-sm">
+            No hay alumnos inscritos en este curso
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+            </div>
+
+            <div class="mt-10 w-full">
+                <a href="{{ url_for('cursos.cursos_listado') }}" 
+                   class="flex items-center justify-center w-full px-5 py-3 text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors shadow-md">
+                    <i class="fa-solid fa-arrow-left-long mr-2"></i> REGRESAR AL LISTADO
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
